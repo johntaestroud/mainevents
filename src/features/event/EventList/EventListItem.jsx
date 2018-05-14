@@ -36,7 +36,7 @@ import EventListAttendee from './EventListAttendee';
               </Segment>
               <Segment clearing>
               <span>{event.description}</span>
-                <Button as="a" color="gray" floated="right" content="View" />
+                <Button as="a" color="#" floated="right" content="View" />
               </Segment>
             </Segment.Group>
     )
