@@ -14,7 +14,7 @@ import { Segment, Form, Button } from 'semantic-ui-react';
 
   onFormSubmit = (evt) => {
     evt.preventDefault();
-    console.log(this.state.event);
+    this.props.createEvent(this.state.event);
   }
 
   onInputChange = (evt) => {
