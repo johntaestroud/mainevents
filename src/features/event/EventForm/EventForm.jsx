@@ -31,7 +31,12 @@ const emptyEvent = {
 
   onFormSubmit = (evt) => {
     evt.preventDefault();
-    this.props.createEvent(this.state.event);
+    if (this.state.event.id) {
+      this.props.updateEvent(this.state.event);
+    } else {
+      this.props.createEvent(this.state.event);
+    }
+    
   }
 
   onInputChange = (evt) => {
