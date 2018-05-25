@@ -115,8 +115,8 @@ class EventDashboard extends Component {
     const updatedEvents = this.state.events.filter(e => e.id !== eventId);
     this.setState({
       events: updatedEvents
-    })
-  }
+    });
+  };
 
   render() {
     const {selectedEvent} = this.state;
