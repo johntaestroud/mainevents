@@ -1,5 +1,5 @@
 const initialState = {
-  data: 404
+  data: 4045
 }
 
 const testReducer = (state = initialState, action) => {
