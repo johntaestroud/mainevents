@@ -1,67 +1,19 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Grid, Button } from 'semantic-ui-react';
 import cuid from 'cuid';
 import EventList from '../EventList/EventList';
 import EventForm from '../EventForm/EventForm';
 
-const eventsDashboard = [
-  {
-    id: '1',
-    title: 'Trip to Tower of London',
-    date: '2018-03-27',
-    category: 'culture',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
-    city: 'London, UK',
-    venue: "Tower of London, St Katharine's & Wapping, London",
-    hostedBy: 'Yu Yan',
-    hostPhotoURL: 'https://randomuser.me/api/portraits/women/27.jpg',
-    attendees: [
-      {
-        id: 'a',
-        name: 'Yu Yan',
-        photoURL: 'https://randomuser.me/api/portraits/women/27.jpg'
-      },
-      {
-        id: 'b',
-        name: 'Hui Yin',
-        photoURL: 'https://randomuser.me/api/portraits/women/48.jpg'
-      }
-    ]
-  },
-  {
-    id: '2',
-    title: 'Trip to Punch and Judy Pub',
-    date: '2018-03-28',
-    category: 'drinks',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
-    city: 'London, UK',
-    venue: 'Punch & Judy, Henrietta Street, London, UK',
-    hostedBy: 'Hui Yin',
-    hostPhotoURL: 'https://randomuser.me/api/portraits/women/48.jpg',
-    attendees: [
-      {
-        id: 'b',
-        name: 'Hui Yin',
-        photoURL: 'https://randomuser.me/api/portraits/women/48.jpg'
-      },
-      {
-        id: 'a',
-        name: 'Yu Yan',
-        photoURL: 'https://randomuser.me/api/portraits/women/27.jpg'
-      }
-    ]
-  }
-]
-
+const mapState = (state) => ({
+  events: state.events
+})
 
 class EventDashboard extends Component {
   // constructor(props) {
   //   super(props)
 
-      state = {
-      events: eventsDashboard,
+    state = {
       isOpen: false,
       selectedEvent: null
     }
@@ -120,10 +72,11 @@ class EventDashboard extends Component {
 
   render() {
     const {selectedEvent} = this.state;
+    const {events} = this.props;
     return (
       <Grid>
         <Grid.Column width={10}>
-          <EventList deleteEvent={this.handleDeleteEvent} onEventOpen={this.handleOpenEvent} events={this.state.events} />
+          <EventList deleteEvent={this.handleDeleteEvent} onEventOpen={this.handleOpenEvent} events={events} />
         </Grid.Column>
         <Grid.Column width={6}>
         <Button onClick={this.handleFormOpen} primary content='Create Event'/>
@@ -136,4 +89,4 @@ class EventDashboard extends Component {
   }
 }
 
-export default EventDashboard 
+export default connect(mapState)(EventDashboard);
