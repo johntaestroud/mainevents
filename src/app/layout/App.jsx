@@ -10,7 +10,7 @@ import PeopleDashboard from '../../features/user/PeopleDashboard/PeopleDashboard
 import EventDetailedPage from '../../features/event/EventDetailed/EventDetailedPage';
 import HomePage from '../../features/home/HomePage';
 import TestComponent from '../../features/testarea/TestComponent';
-
+//test
 class App extends Component {
   render() {
     return (
