@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field} from 'redux-form';
+import { composeValidators, combineValidators, isRequired, hasLengthGreaterThan } from 'revalidate';
 import cuid from 'cuid';
 import { Segment, Form, Button, Grid, Header } from 'semantic-ui-react';
 import { createEvent, updateEvent } from '../eventActions';
@@ -36,6 +37,17 @@ import SelectInput from '../../../app/common/form/SelectInput';
      {key: 'travel', text: 'Travel', value: 'travel'},
  ];
 
+ const validate = combineValidators({
+   title: isRequired({message: "The event title is required"}),
+   category: isRequired({message: 'The event title is required'}),
+   description: composeValidators(
+     isRequired({message: 'Please enter a description'}),
+     hasLengthGreaterThan(4)({message: 'Description needs to be a least 5 characters'})
+   )(),
+   city: isRequired('city'),
+   venue: isRequired('venue')
+ })
+
  class EventForm extends Component {
 
   onFormSubmit = values => {
@@ -57,6 +69,7 @@ import SelectInput from '../../../app/common/form/SelectInput';
  
 
   render() {
+    const {invalid, submitting, pristine} = this.props;
     return (
       <Grid>
         <Grid.Column width={10}>
@@ -71,7 +84,7 @@ import SelectInput from '../../../app/common/form/SelectInput';
                <Field name='city'  type='text' component={TextInput} placeholder='Event location' />
                <Field name='venue'  type='text' component={TextInput} placeholder='Event venue' />
                <Field name='date'  type='text' component={TextInput} placeholder='Event date' />
-               <Button primary type="submit">
+               <Button disabled={invalid || submitting || pristine} primary type="submit">
                  Submit
                </Button>
                <Button  onClick={this.props.history.goBack} type="button">Cancel</Button>
@@ -83,4 +96,4 @@ import SelectInput from '../../../app/common/form/SelectInput';
     )
   }
 }
-export default connect(mapState, actions)(reduxForm({form: 'eventForm', enableReinitialize: true })(EventForm));
+export default connect(mapState, actions)(reduxForm({form: 'eventForm', enableReinitialize: true, validate })(EventForm));
