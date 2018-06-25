@@ -100,4 +100,5 @@ import DateInput from '../../../app/common/form/DateInput';
     )
   }
 }
+
 export default connect(mapState, actions)(reduxForm({form: 'eventForm', enableReinitialize: true, validate })(EventForm));
