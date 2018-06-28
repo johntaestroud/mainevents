@@ -77,8 +77,22 @@ import PlaceInput from '../../../app/common/form/PlaceInput';
     });
   };
 
+  handleVenueSelect = selectedVenue => {
+    geocodeByAddress(selectedVenue)
+    .then(results => getLatLng(results[0]))
+    .then(Latlng => {
+      this.setState({
+        venueLatLng: Latlng
+      });
+    })
+    .then(() => {
+      this.props.change('venue', selectedVenue) // using mouse for selection
+    });
+  };
+
   onFormSubmit = values => {
     values.date = moment(values.date).format()
+    values.venueLatLng = this.state.venueLatLng;
     if (this.props.initialValues.id) {
       this.props.updateEvent(values);
       this.props.history.goBack();
@@ -115,8 +129,25 @@ import PlaceInput from '../../../app/common/form/PlaceInput';
                <Header sub color='blue' content='Event Location Details'/>
                <Field name='city'  type='text' component={PlaceInput} options={{ types: ['(cities)'] }} placeholder='Event location' onSelect={this.handleCitySelect} />
                {this.state.scriptLoaded &&
-               <Field name='venue'  type='text' component={PlaceInput} options={{ location: new google.maps.LatLng(this.state.cityLatLng), radius: 1000, types: ['establishment']}} placeholder='Event venue' />}
-               <Field name='date'  type='text' component={DateInput} dateFormat='YYYY-MM-DD HH:mm' timeFormat='HH:mm' showTimeSelect placeholder='Event date and time' />
+               <Field 
+                 name='venue'  
+                 type='text' 
+                 component={PlaceInput} 
+                 options={{ 
+                   location: new google.maps.LatLng(this.state.cityLatLng), 
+                   radius: 1000, 
+                   types: ['establishment']
+                  }} 
+                 placeholder='Event venue'
+                 onSelect={this.handleVenueSelect}
+                 />}
+               <Field 
+                 name='date'  
+                 type='text' 
+                 component={DateInput} 
+                 dateFormat='YYYY-MM-DD HH:mm' 
+                 timeFormat='HH:mm' 
+                 showTimeSelect placeholder='Event date and time' />
                <Button disabled={invalid || submitting || pristine} primary type="submit">
                  Submit
                </Button>
