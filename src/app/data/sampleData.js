@@ -13,12 +13,12 @@ const sampleData = {
             lng: -73.98566440000002
           },
           hostedBy: 'Bob',
-          hostPhotoURL: 'https://randomuser.me/api/portraits/men/20.jpg',
+          hostPhotoURL: 'https://randomuser.me/api/portraits/men/21.jpg',
           attendees: [
             {
               id: 'a',
               name: 'Bob',
-              photoURL: 'https://randomuser.me/api/portraits/men/20.jpg'
+              photoURL: 'https://randomuser.me/api/portraits/men/21.jpg'
             },
             {
               id: 'b',
@@ -45,7 +45,7 @@ const sampleData = {
             {
               id: 'a',
               name: 'Bob',
-              photoURL: 'https://randomuser.me/api/portraits/men/20.jpg'
+              photoURL: 'https://randomuser.me/api/portraits/men/21.jpg'
             },
             {
               id: 'b',
